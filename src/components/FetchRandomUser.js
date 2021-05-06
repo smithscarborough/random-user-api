@@ -15,6 +15,7 @@ export default class FetchRandomUser extends Component {
         const response = await fetch(url);
         const data = await response.json();
         this.setState({ person: data.results[0], isLoading: false });
+        console.log(data)
     }
 
     render() {
@@ -24,7 +25,8 @@ export default class FetchRandomUser extends Component {
                 <div>loading...</div> 
             ) : (
                 <div>
-                    <div>{this.state.person.name.first}</div>
+                    <div>Name: {this.state.person.name.title}. {this.state.person.name.first} {this.state.person.name.last}</div>
+                    <img src={this.state.person.picture.large} />
                 </div>
             )}
             </div>
