@@ -1,11 +1,13 @@
 import './App.css';
-import FetchRandomUser from './components/FetchRandomUser';
+import FetchRandomUserRCC from './components/FetchRandomUserRCC';
+import FetchRandomUserRFC from './components/FetchRandomUserRFC';
 
 function App() {
   return (
     <div className="App">
       <h1>Random User:</h1>
-      <FetchRandomUser />
+      {/* <FetchRandomUserRCC /> */}
+      <FetchRandomUserRFC />
     </div>
   );
 }
