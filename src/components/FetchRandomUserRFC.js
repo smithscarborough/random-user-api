@@ -1,27 +1,33 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from "react";
+
+const useFetch = url => {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // Similar to componentDidMount and componentDidUpdate:
+  useEffect(async () => {
+    const response = await fetch(url);
+    const data = await response.json();
+    const [item] = data.results;
+    setData(item);
+    setLoading(false);
+  }, []);
+
+  return { data, loading };
+};
 
 export default function FetchRandomUserRFC() {
-    const [randomUser, setRandomUser] = useState('')
+  const [count, setCount] = useState(0);
+  const { data, loading } = useFetch("https://api.randomuser.me/");
 
-    useEffect(() => {
-        fetch('https://api.randomuser.me/')
-            .then(res => res.json())
-            .then(data => {
-                setRandomUser(data.results[0])
-                console.log(data.results[0])
-            })
-    }, [])
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>Click me</button>
+      {loading ? <div>...loading</div> : <div>{data.name.first}</div>}
+    </div>
+  );
+};
 
 
 
-    
-
-    return (
-        <div>
-            <h2>Functional Component</h2>
-
-            <div>{randomUser.name.first} {randomUser.name.last}</div>
-            <img src={randomUser.picture.large} alt='' />
-        </div>
-    )
-}
